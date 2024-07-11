@@ -125,10 +125,10 @@
                 alert("Please input your location and destination.");
                 return;
             }
-    
+        
             const result = window.Dijkstra(window.graphData.graph, start, end);
             resultDistance = result.distance;
-    
+        
             if (result.path.length > 0) {
                 window.mapData.drawRoute(result.path);
                 document.getElementById("result").value = `${resultDistance.toFixed(2)} meters`;
@@ -136,19 +136,27 @@
                 document.getElementById("result").value = "0 meters";
             }
         });
-    
+        
         document.getElementById("walk-btn").addEventListener("click", (event) => {
             event.preventDefault();
             const speed = 5.1; 
             const estimatedTime = convertDistanceToTime(resultDistance, speed);
-            document.getElementById("speed").value = `${estimatedTime.minutes} minutes, ${estimatedTime.seconds} seconds`;
+            
+            const minsText = estimatedTime.minutes === 1 || estimatedTime.minutes === 0 ? 'minute' : 'minutes';
+            const secsText = estimatedTime.seconds === 1 || estimatedTime.seconds === 0 ? 'second' : 'seconds';
+            
+            document.getElementById("speed").value = `${estimatedTime.minutes} ${minsText}, ${estimatedTime.seconds} ${secsText}`;
         });
-    
+        
         document.getElementById("run-btn").addEventListener("click", (event) => {
             event.preventDefault();
             const speed = 10; 
             const estimatedTime = convertDistanceToTime(resultDistance, speed);
-            document.getElementById("speed").value = `${estimatedTime.minutes} minutes, ${estimatedTime.seconds} seconds`;
+            
+            const minsText = estimatedTime.minutes === 1 || estimatedTime.minutes === 0 ? 'minute' : 'minutes';
+            const secsText = estimatedTime.seconds === 1 || estimatedTime.seconds === 0 ? 'second' : 'seconds';
+            
+            document.getElementById("speed").value = `${estimatedTime.minutes} ${minsText}, ${estimatedTime.seconds} ${secsText}`;
         });
     </script>
 </body>
